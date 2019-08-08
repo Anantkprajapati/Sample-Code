@@ -1,2 +1,4 @@
 # Sample-Code
-This is use for the sample code
+Hello Guys
+
+This repository basically used to share my sample code.

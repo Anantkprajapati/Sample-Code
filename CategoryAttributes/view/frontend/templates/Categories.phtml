@@ -1,0 +1,44 @@
+<?php
+/**
+ * @var \AimsCoder\CategoryAttributes\Block\HomePageCategories $block
+ */
+$collection = $block->getHomePageCategories();
+?>
+
+<div class="section-content">
+	<ul class="shop-product-ul">
+		<?php foreach($collection as $category) { ?>
+			<?php 
+				$categoryData = $block->getCategory($category->getId()); 
+				$childCate = explode(",",$categoryData->getChildren());
+				
+			?>
+			<li class="shop-product-li">
+				<div class="img-section"><img src="<?php echo $category->getImageUrl() ?>"></div>
+				<div class="shop-content">
+					<p class="shop-section-title"><a href="<?php echo $category->getUrl() ?>"><span><?php echo $category->getName() ?></span></a></p>
+					<p class="shop-section-content ">
+						<div class="shop-section-child ">
+						<?php 
+							$i = 0;
+							foreach ($childCate as $child) {
+								$childCategory = $block->getCategory($child);
+							?>
+								<a href="<?php echo $childCategory->getUrl() ?>" class="child-link"><span><?php echo $childCategory->getName(); ?></span></a>
+							<?php 
+								if ($i > 1) {
+									break;
+								}
+								$i++;
+							}
+						?>
+						<?php //echo $category->getDescription() ?>
+						</div>
+
+					</p>
+					<p class="shop-section-title"><a href="<?php echo $category->getUrl(); ?>">View all &gt;</a></p>
+				</div>
+			</li>
+		<?php } ?>
+	</ul>
+</div>

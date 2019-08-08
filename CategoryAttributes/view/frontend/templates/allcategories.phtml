@@ -1,0 +1,46 @@
+<?php 
+/*
+$block \AimsCoder\CategoryAttributes\Block\Categories
+*/
+
+$allCategoriesCollection = $block->getAllCategories();
+$imageHelper = \Magento\Framework\App\ObjectManager::getInstance()->get(\Magento\Catalog\Helper\Image::class);
+?>
+<div class="title title-block">
+	<h2><?php echo __('All Categories'); ?></h2>
+</div>
+<div class="all-categories-section-main">
+	<ul class="container">
+		<?php $i = 0; ?>
+		<?php foreach ($allCategoriesCollection as $categoryCollection) { ?>
+			<?php
+				$categoryData = $block->getCategory($categoryCollection->getId()); 
+				/*$childCate = explode(",",$categoryData->getChildren());*/
+			?>
+			<?php if ($i == 4) { $i=0; } ?>
+            <?php if ($i == 0 ) { ?>
+                <li class="shop-product-li col-sm-24">
+            <?php } ?>
+            	<div class="col-sm-6">
+					<div class="img-section">
+						<?php if ($categoryCollection->getImageUrl() != '') { ?>
+							<img src="<?php echo $categoryCollection->getImageUrl() ?>" />
+						<?php } else { ?>
+							<img src="<?php echo $imageHelper->getDefaultPlaceholderUrl('image') ?>" />
+						<?php } ?>
+					</div>
+					<div class="shop-content">
+						<p class="shop-section-title">
+							<a href="<?php echo $categoryCollection->getUrl() ?>">
+								<span><?php echo $categoryCollection->getName(); ?></span>
+							</a>
+						</p>
+					</div>
+				</div>
+			<?php if ($i == 4) { ?>
+                </li>
+            <?php } ?>
+			<?php $i++; ?>
+		<?php } ?>
+	</ul>
+</div>
